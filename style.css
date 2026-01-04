@@ -1,0 +1,178 @@
+@font-face {
+    font-family: 'GT-Pressura-Mono-Regular';
+    src: url('GT-Pressura-Mono-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+.description {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    width: 800px;
+    height: 120px;
+    font-family: 'GT-Pressura-Mono-Regular', monospace;
+    font-size: 10px;
+    color: white;
+    text-align: left;
+    line-height: 12px;
+    z-index: 1000;
+    mix-blend-mode: difference;
+}
+
+.description a {
+    color: white;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    background: #000;
+}
+
+.scroll-container {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: auto;
+    overflow-y: hidden;
+    position: relative;
+    cursor: none;
+    scroll-behavior: auto;
+}
+
+
+.cursor-blend {
+    position: fixed;
+    width: 3360px;
+    height: 3360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.8) 10%, rgba(255, 255, 255, 0.4) 25%, rgba(255, 255, 255, 0) 50%);
+    mix-blend-mode: difference;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1), height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    opacity: 0;
+    filter: blur(60px);
+}
+
+.cursor-blend.active {
+    opacity: 1;
+}
+
+.scroll-wrapper {
+    display: block;
+    height: 100vh;
+    will-change: transform, filter;
+    transition: filter 0.1s ease-out;
+    isolation: isolate;
+    position: relative;
+    z-index: 1;
+    contain: layout style paint;
+}
+
+.scroll-wrapper img {
+    height: 100vh;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+    background: transparent;
+    position: absolute;
+    top: 0;
+    opacity: 0.9;
+    transition: opacity 0.3s ease, mix-blend-mode 0.3s ease;
+    z-index: 1;
+    image-rendering: -webkit-optimize-contrast;
+    transform: translateZ(0);
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.5) 18%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 70%, rgba(0,0,0,0.8) 75%, rgba(0,0,0,0.5) 82%, rgba(0,0,0,0.2) 90%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, rgba(0,0,0,0.2) 10%, rgba(0,0,0,0.5) 18%, rgba(0,0,0,0.8) 25%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 70%, rgba(0,0,0,0.8) 75%, rgba(0,0,0,0.5) 82%, rgba(0,0,0,0.2) 90%, transparent 100%);
+    mask-composite: intersect;
+    -webkit-mask-composite: source-in;
+}
+
+.scroll-container::-webkit-scrollbar {
+    display: none;
+}
+.scroll-container {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+#webgl-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 10000;
+    mix-blend-mode: difference;
+    display: none;
+}
+
+.auto-blend-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 9998;
+    overflow: hidden;
+}
+
+.auto-blend-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.9) 15%, rgba(255, 255, 255, 0.6) 30%, rgba(255, 255, 255, 0.3) 45%, rgba(255, 255, 255, 0) 60%);
+    mix-blend-mode: difference;
+    filter: blur(50px);
+    opacity: 1;
+    will-change: transform;
+}
+
+/* 모바일 스타일 */
+@media (max-width: 768px) {
+    .description {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 400px;
+        height: auto;
+        font-size: 14px;
+        line-height: 1.6;
+        text-align: center;
+        padding: 20px;
+        z-index: 10000;
+    }
+
+    .scroll-container {
+        display: none;
+    }
+
+    .scroll-wrapper {
+        display: none;
+    }
+
+    .cursor-blend {
+        display: none;
+    }
+
+    .auto-blend-container {
+        display: none;
+    }
+
+    #webgl-canvas {
+        display: none;
+    }
+}
